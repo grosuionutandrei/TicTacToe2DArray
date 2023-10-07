@@ -68,6 +68,12 @@ public class GameBoard implements IGameModel {
         if (checkWinnerRowsAndDiagonals(board)) {
             return true;
         }
+        if (checkColumns(board)){
+            System.out.println(getWinner() + " winner");
+            return true;
+        }
+
+
 
 
         return false;
@@ -98,12 +104,13 @@ public class GameBoard implements IGameModel {
         int[] mainDiagonal = new int[data.length];
         int[] secondDiagonal = new int[data.length];
 
+
+
         for (int i = 0; i < data.length; i++) {
             if (endGame) {
                 break;
             }
             for (int j = 0; j < data[0].length; j++) {
-
                 currentRow[j] = data[i][j];
                 if (i == j) {
                     System.out.println(data[i][j] + " maindiagonal" + i);
@@ -137,6 +144,8 @@ public class GameBoard implements IGameModel {
             endGame = true;
 
         }
+
+
 
 
         return endGame;
@@ -195,6 +204,38 @@ public class GameBoard implements IGameModel {
                 arr[i][j] = reset;
             }
         }
+    }
+
+
+    public int[][] getBoard() {
+        return board;
+    }
+
+    public boolean checkColumns(int[][] board){
+        boolean endGame = false;
+        int[] columns = {0,1,2} ;
+        int [] columnValues = new int[board.length];
+        for(int i = 0;i<columns.length;i++){
+            if(endGame){
+                break;
+            }
+            for(int j = 0; j<board.length;j++){
+                for(int z = 0;z<board[0].length;z++){
+                   if(z==i){
+                       columnValues[j]=board[j][z];
+                   }
+                }
+
+            }
+           if(isFullRow(columnValues)){
+               System.out.println( printArr(columnValues)+" column " + i);
+               System.out.println(decideWinner(columnValues)+ "winner");
+               this.winner=decideWinner(columnValues);
+               endGame=true;
+           }
+
+        }
+       return  endGame;
     }
 
 }

@@ -118,15 +118,18 @@ public class GameBoardTest
     public void testGetWinnerPlayerZeroVeritcal()
     {
         GameBoard instance = new GameBoard();
-        int expResult = 0;
+        int expResult = 1;
 
-        instance.play(0, 0); //Player 0
-        instance.play(1, 0); //Player 1
+        instance.play(1, 1); //Player 0
+        instance.play(0, 0); //Player 1
         instance.play(0, 1); //Player 0
         instance.play(2, 0); //Player 1
-        instance.play(0, 2); //Player 0
+        instance.play(1, 2); //Player 0
+        instance.play(1, 0); //Player 1
 
+        boolean isGameOver = instance.isGameOver();
         int result = instance.getWinner();
+        assertTrue(isGameOver);
         assertEquals(expResult, result);
     }
 
@@ -178,6 +181,20 @@ public class GameBoardTest
         int[] test={1,9,0};
         boolean toTest =instance.isFullOne(test);
         assertEquals(exp,toTest);
+    }
+    @Test
+    public void testColumns(){
+        GameBoard instance = new GameBoard();
+        boolean expResult = true;
+
+        instance.play(0, 0); //Player 0
+        instance.play(1, 0); //Player 1
+        instance.play(0, 1); //Player 0
+        instance.play(2, 0); //Player 1
+        instance.play(0, 2); //Player 0
+
+        boolean result = instance.checkColumns(instance.getBoard());
+        assertEquals(expResult, result);
     }
 
 }
