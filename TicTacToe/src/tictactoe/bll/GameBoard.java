@@ -11,6 +11,7 @@ package tictactoe.bll;
 public class GameBoard implements IGameModel {
     private int currentPlayer;
     private int winner = -1;
+    private int turn;
 
     private int[][] board = {{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}};
 
@@ -35,7 +36,11 @@ public class GameBoard implements IGameModel {
      * this method will always return false.
      */
     public boolean play(int col, int row) {
+
+        System.out.println(turn);
         boolean play = false;
+
+
             if (isGameOver()) {
                 return false;
             }
@@ -52,7 +57,7 @@ public class GameBoard implements IGameModel {
         } else if (currentPlayer == 1) {
             currentPlayer = 0;
         }
-
+        turn+=1;
         return play;
     }
 
@@ -61,6 +66,9 @@ public class GameBoard implements IGameModel {
             return true;
         }
         if (checkColumns(board)){
+            return true;
+        }
+        if(turn==9){
             return true;
         }
         return false;
@@ -80,6 +88,7 @@ public class GameBoard implements IGameModel {
      */
     public void newGame() {
         this.currentPlayer = 0;
+        this.turn=0;
         resetBoard(this.board);
     }
 
@@ -128,13 +137,6 @@ public class GameBoard implements IGameModel {
     }
 
 
-    private String printArr(int[] arr) {
-        String temp = "";
-        for (int i = 0; i < arr.length; i++) {
-            temp += String.valueOf(arr[i]);
-        }
-        return temp;
-    }
 
     private boolean isFullRow(int[] row) {
         boolean theSame = false;
@@ -189,9 +191,9 @@ public class GameBoard implements IGameModel {
 
     public boolean checkColumns(int[][] board){
         boolean endGame = false;
-        int[] columns = {0,1,2} ;
+        int columns = board[0].length ;
         int [] columnValues = new int[board.length];
-        for(int i = 0;i<columns.length;i++){
+        for(int i = 0;i<columns;i++){
             if(endGame){
                 break;
             }
