@@ -45,12 +45,9 @@ public class TicTacViewController implements Initializable
             Integer col = GridPane.getColumnIndex((Node) event.getSource());
             int r = (row == null) ?  0: row;
             int c = (col == null) ? 0 : col;
-            System.out.println(r);
-            System.out.println(c);
             int player = game.getNextPlayer();
             if (game.play(c, r))
             {
-                System.out.println("move approved");
                 if (game.isGameOver())
                 {
                     int winner = game.getWinner();
@@ -67,7 +64,6 @@ public class TicTacViewController implements Initializable
                     setPlayer();
                 }
             }else{
-                System.out.println("move denied");
             }
         } catch (Exception e)
         {

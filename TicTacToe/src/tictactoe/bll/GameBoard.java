@@ -35,17 +35,13 @@ public class GameBoard implements IGameModel {
      * this method will always return false.
      */
     public boolean play(int col, int row) {
-        System.out.println(board.length - 1);
         boolean play = false;
-
-        if (isGameOver()) {
-            return false;
-        }
+            if (isGameOver()) {
+                return false;
+            }
 
         if (board[row][col] < 0) {
             board[row][col] = currentPlayer;
-            System.out.println(board[row][col] + " data initialized");
-
             play = true;
         } else if (board[row][col] >= 0) {
             return false;
@@ -57,25 +53,16 @@ public class GameBoard implements IGameModel {
             currentPlayer = 0;
         }
 
-
-        //TODO Implement this method
         return play;
     }
 
     public boolean isGameOver() {
-        //TODO Implement this method
-
         if (checkWinnerRowsAndDiagonals(board)) {
             return true;
         }
         if (checkColumns(board)){
-            System.out.println(getWinner() + " winner");
             return true;
         }
-
-
-
-
         return false;
     }
 
@@ -85,7 +72,6 @@ public class GameBoard implements IGameModel {
      * @return int id of winner, or -1 if draw.
      */
     public int getWinner() {
-        //TODO Implement this method
         return winner;
     }
 
@@ -93,7 +79,6 @@ public class GameBoard implements IGameModel {
      * Resets the game to a new game state.
      */
     public void newGame() {
-        //TODO Implement this method
         this.currentPlayer = 0;
         resetBoard(this.board);
     }
@@ -113,7 +98,6 @@ public class GameBoard implements IGameModel {
             for (int j = 0; j < data[0].length; j++) {
                 currentRow[j] = data[i][j];
                 if (i == j) {
-                    System.out.println(data[i][j] + " maindiagonal" + i);
                     mainDiagonal[i] = data[i][j];
                 }
                 if (j + i == (data.length - 1)) {
@@ -121,25 +105,17 @@ public class GameBoard implements IGameModel {
                 }
             }
             if (isFullRow(currentRow)) {
-                System.out.println(decideWinner(currentRow) + "We have a winner");
                 this.winner = decideWinner(currentRow);
                 endGame = true;
             }
-            System.out.println(printArr(currentRow) + " current row" + " " + i);
-
-            currentRow = new int[data.length];
-
 
         }
-        System.out.println(endGame);
         if(isFullRow(mainDiagonal)){
-            System.out.println(decideWinner(currentRow) + "We have a winner");
             this.winner = decideWinner(mainDiagonal);
             endGame = true;
 
         }
         if(isFullRow(secondDiagonal)){
-            System.out.println(decideWinner(currentRow) + "We have a winner");
             this.winner = decideWinner(secondDiagonal);
             endGame = true;
 
@@ -228,8 +204,6 @@ public class GameBoard implements IGameModel {
 
             }
            if(isFullRow(columnValues)){
-               System.out.println( printArr(columnValues)+" column " + i);
-               System.out.println(decideWinner(columnValues)+ "winner");
                this.winner=decideWinner(columnValues);
                endGame=true;
            }
