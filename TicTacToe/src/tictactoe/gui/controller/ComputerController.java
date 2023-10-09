@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import tictactoe.bll.Computer.ComputerPlayer;
 import tictactoe.bll.Computer.GameBoardComputer;
 import tictactoe.bll.Computer.GameBoardComputerControllable;
 import java.net.URL;
@@ -21,6 +22,7 @@ public class ComputerController implements Initializable {
     @FXML
     private GridPane gridPane;
     private GameBoardComputerControllable game;
+    private ComputerPlayer cmpPlayer;
 
     @FXML
     private Label lblPlayer;
@@ -34,20 +36,23 @@ public class ComputerController implements Initializable {
         if(game.getGridData()==null){
             game.setGridData(setGridData(gridPane));
         }
+
         try
         {
             Integer row = GridPane.getRowIndex((Node) event.getSource());
             Integer col = GridPane.getColumnIndex((Node) event.getSource());
             int r = (row == null) ?  0: row;
             int c = (col == null) ? 0 : col;
-            String player = game.getNextPlayer();
-            if (game.play(c, r))
+            String player=game.getNextPlayer();
+            Integer[] playerMove = {r,c};
+            cmpPlayer.addTakenCoordinates(playerMove);
+
+          if (game.play(c, r))
             {
                 if (game.isGameOver())
                 {
                     Button btn = (Button) event.getSource();
                     btn.setText(decideSymbol(player,playerSymbol));
-                    setPlayer();
                     displayWinner(game.getWinner());
                 }
                 else
@@ -56,13 +61,46 @@ public class ComputerController implements Initializable {
                     btn.setText(decideSymbol(player,playerSymbol));
                     setPlayer();
                 }
-            }else{
-            }
+            }else {
+          }
+                Integer[] computerMove = cmpPlayer.computerCoordinates();
+            System.out.println(computerMove[0]+" " +computerMove[1]);
+            if (game.play(computerMove[1], computerMove[0]))
+                {
+                    if (game.isGameOver())
+                    {
+                        for(Node nd: gridPane.getChildren() ){
+                            int rowc =   gridPane.getRowIndex(nd)!=null?gridPane.getRowIndex(nd):0;
+                            int column = gridPane.getColumnIndex(nd)!=null?gridPane.getColumnIndex(nd):0;
+                            if(rowc==computerMove[0]&&column==computerMove[1]){
+                                ((Button)nd).setText(decideSymbol(player2,playerSymbol));
+                            }
+                        }
+                        displayWinner(game.getWinner());
+                    }
+                    else
+                    {
+                        for(Node nd: gridPane.getChildren() ){
+                            int rowc =   gridPane.getRowIndex(nd)!=null?gridPane.getRowIndex(nd):0;
+                            int column = gridPane.getColumnIndex(nd)!=null?gridPane.getColumnIndex(nd):0;
+                            if(rowc==computerMove[0]&&column==computerMove[1]){
+                                ((Button)nd).setText(decideSymbol(player2,playerSymbol));
+                            }
+                        }
+                        setPlayer();
+                    }
+                }
+
+
+
+
         } catch (Exception e)
         {
             System.out.println(e.getMessage());
 
         }
+
+
 
     }
     public void handleComputerStart(){
@@ -95,6 +133,7 @@ public class ComputerController implements Initializable {
     {
         game = new GameBoardComputer();
         game.setGridData(setGridData(gridPane));
+        cmpPlayer=new ComputerPlayer();
 
     }
 
