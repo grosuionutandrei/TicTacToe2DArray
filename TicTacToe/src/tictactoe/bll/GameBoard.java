@@ -37,7 +37,7 @@ public class GameBoard implements IGameModel {
      */
     public boolean play(int col, int row) {
 
-        System.out.println(turn);
+
         boolean play = false;
 
 

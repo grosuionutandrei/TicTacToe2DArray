@@ -20,7 +20,7 @@
       </Label>
       <HBox alignment="BOTTOM_CENTER" prefHeight="42.0" prefWidth="400.0">
          <children>
-            <Button fx:id="pvc" mnemonicParsing="false" text="Player vs Computer" textFill="#cbe11e">
+            <Button fx:id="pvc" onAction="#loadComputerWorld" mnemonicParsing="false" text="Player vs Computer" textFill="#cbe11e">
                <font>
                   <Font name="System Italic" size="18.0" />
                </font>

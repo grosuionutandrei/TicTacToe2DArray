@@ -42,7 +42,21 @@ public class StartController implements Initializable {
         Parent root = loader.load();
         Scene playerGame = new Scene(root);
         stage = new Stage();
+        stage.setResizable(false);
+        stage.setTitle("Player vs player");
         stage.setScene(playerGame);
         stage.show();
+    }
+
+    public void loadComputerWorld(ActionEvent event) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/ComputerStart.fxml"));
+        Parent root = loader.load();
+        stage = new Stage();
+        stage.setResizable(false);
+        stage.setTitle("Player vs Computer");
+        stage.setScene(new Scene(root));
+        stage.show();
+
     }
 }
