@@ -1,48 +1,72 @@
 package tictactoe.bll.Computer;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 public class ComputerPlayer {
 
-    public Integer[] computerCoordinates(){
-        Integer[]random = getRandomCoordinates(takenCoordinates);
-        System.out.println(random[0]+" " + random[1]);
-        return random;
+
+
+/*
+* to implement when game is not finished
+* and the computer needs to find an empty cell in the grid;
+*
+* */
+private int turn=0;
+    private String[][] gridPane = new String[3][3];
+
+
+    public Integer[] computerCoordinates() {
+       Integer[] coordinates = {2,3};
+
+       if(turn<=3){
+            return getCoords(gridPane);
+        }
+
+        System.out.print("Computer coords " +coordinates[0] + " " + coordinates[1]);
+        turn+=1;
+        return coordinates;
     }
-   private ArrayList<Integer[]> takenCoordinates = new ArrayList<>();
+
+    private ArrayList<Integer[]> takenCoordinates = new ArrayList<>();
+
     public ArrayList<Integer[]> getTakenCoordinates() {
         return takenCoordinates;
     }
+
     public void addTakenCoordinates(Integer[] place) {
+        this.gridPane[place[0]][place[1]] = "1";
+        System.out.println(this.gridPane[place[0]][place[1]] + " taken coordinates");
         takenCoordinates.add(place);
     }
 
-
-    private int randomNumber(){
-        Random random =new Random();
-        return random.nextInt(3);
+    private int randomNumber(int bound) {
+        Random random = new Random();
+        return random.nextInt(bound);
     }
 
-    private boolean checkIfTaken(ArrayList<Integer[]> taken,Integer[] current){
+    private Integer[] getCoords(String[][] strings) {
+        Integer[] coords = new Integer[2];
+        boolean find = false;
 
-        for(Integer[] coord:taken ){
-            if (Objects.equals(taken, current)) {
-             return true;
+        while (!find) {
+            int row = randomNumber(3);
+            int col = randomNumber(3);
+            for (int i = 0; i < strings.length; i++) {
+                for (int j = 0; j < strings[0].length; j++) {
+                    if (row == i) {
+                        if (col == j) {
+                            if (strings[i][j] == null) {
+                                find = true;
+                                coords[0] = row;
+                                coords[1] = col;
+                            }
+                        }
+                    }
+                }
             }
         }
-        return false;
+return coords;
     }
 
-    private Integer[] getRandomCoordinates(ArrayList<Integer[]> takenCoordinates){
-        int  row = randomNumber();
-        int col = randomNumber();
-        Integer[] current = {row,col};
-        if(!checkIfTaken(takenCoordinates,current)){
-            return current;
-        }
-        return getRandomCoordinates(takenCoordinates);
-    }
+
 }

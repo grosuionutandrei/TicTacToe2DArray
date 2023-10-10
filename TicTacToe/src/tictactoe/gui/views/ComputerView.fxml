@@ -39,7 +39,7 @@
       </GridPane>
    </center>
    <top>
-      <Label fx:id="lblPlayer" text="1" BorderPane.alignment="CENTER">
+      <Label fx:id="lblPlayer" text="" BorderPane.alignment="CENTER">
          <font>
             <Font size="24.0" />
          </font>

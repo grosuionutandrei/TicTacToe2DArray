@@ -21,9 +21,11 @@ public class GameBoardComputer implements GameBoardComputerControllable {
     private String winner = "";
     int turn = 0;
 
-    //    Returns the current player
+
+
+    @Override
     public String getNextPlayer() {
-      return player;
+      return  player;
     }
 
     /**
@@ -35,6 +37,9 @@ public class GameBoardComputer implements GameBoardComputerControllable {
      * @param row row to place a marker in.
      * @return true if the move is accepted, otherwise false. If gameOver == true
      */
+
+
+
     public boolean play(int col, int row) {
         if (isGameOver()) {
             return false;
@@ -44,7 +49,7 @@ public class GameBoardComputer implements GameBoardComputerControllable {
 
         if (gridData[row][col].isEmpty()) {
             gridData[row][col] = decideSymbol(player, playerSymbol);
-        } else {
+        } else{
             return false;
         }
         if (player.equals("Computer")) {
@@ -55,7 +60,6 @@ public class GameBoardComputer implements GameBoardComputerControllable {
 
         }
         printGrid(gridData);
-
 
         turn += 1;
         return true;
@@ -68,7 +72,7 @@ public class GameBoardComputer implements GameBoardComputerControllable {
         if (checkColumns(gridData)) {
             return true;
         }
-        if (turn == 9) {
+        if (turn ==9 ) {
             this.winner = "draw";
             return true;
         }
@@ -88,16 +92,15 @@ public class GameBoardComputer implements GameBoardComputerControllable {
      * Resets the game to a new game state.
      */
     public void newGame() {
-        if (playerSymbol.equals("O")) {
-            this.player = "Computer";
-        } else {
-            this.player = "X";
-            this.playerSymbol = "X";
-        }
+//        if (playerSymbol.equals("O")) {
+//            this.player = "Computer";
+//        } else {
+//            this.player = "X";
+
+
 
         this.winner = "";
         turn = 0;
-        this.gridData = null;
     }
 
     @Override
@@ -260,4 +263,5 @@ public class GameBoardComputer implements GameBoardComputerControllable {
             System.out.print(row[i]);
         }
     }
+
 }

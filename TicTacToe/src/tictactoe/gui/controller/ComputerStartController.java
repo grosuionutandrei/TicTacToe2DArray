@@ -93,10 +93,8 @@ private VBox computerStartWindow;
             ComputerController controller = loader.getController();
             controller.setComputerLevel(computerLevel);
             controller.setPlayerSymbol(playerSymbol);
-
             if(playerSymbol.equals("O")){
                 controller.handleComputerStart();
-                controller.setLblPlayer("Computer");
             }else{
                 controller.setLblPlayer(playerSymbol);
             }
